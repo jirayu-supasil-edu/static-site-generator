@@ -1,5 +1,6 @@
 from textnode import TextNode, TextType
 import re
+from textnode import text_node_to_html_node
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
@@ -81,6 +82,12 @@ def text_to_textnodes(text):
     current_nodes = split_nodes_image(current_nodes)
     current_nodes = split_nodes_link(current_nodes)
     return current_nodes
+
+def text_to_children(text):
+    text_nodes = text_to_textnodes(text)
+    children = [text_node_to_html_node(text_node) for text_node in text_nodes]
+    return children
+
 
 
         

@@ -82,14 +82,14 @@ def markdown_to_html_node(markdown):
         
         if block_type == BlockType.QUOTE:
             lines = block.split("\n")
-            new_lines = [line[1:] for line in lines]
+            new_lines = [line[2:] for line in lines]
             text = "\n".join(new_lines)
             node.tag = "blockquote"
             node.children = text_to_children(text)
         
         if block_type == BlockType.UNORDERED_LIST:
             lines = block.split("\n")
-            new_lines = [line[1:] for line in lines]
+            new_lines = [line[2:] for line in lines]
             items = []
             for line in new_lines:
                 list_item = ParentNode(tag= "li", children=text_to_children(text = line))
@@ -99,7 +99,7 @@ def markdown_to_html_node(markdown):
         
         if block_type == BlockType.ORDERED_LIST:
             lines = block.split("\n")
-            new_lines = [line[1:] for line in lines]
+            new_lines = [line[3:] for line in lines]
             items = []
             for line in new_lines:
                 list_item = ParentNode(tag= "li", children=text_to_children(text = line))
@@ -116,6 +116,7 @@ def markdown_to_html_node(markdown):
         div_node.children.append(node)
     
     return div_node
+
         
     
         

@@ -1,9 +1,26 @@
 from textnode import TextNode, TextType
+from copystatic import copy_files_recursive
+from gencontent import generate_pages_recursive
 
-from inline_markdown import split_nodes_image, split_nodes_link
+import os
+import shutil
+from pathlib import Path
+
+dir_path_static = "./static"
+dir_path_public = "./public"
+dir_path_content = "./content"
+template_path = "./template.html"
 
 def main():
-    node = TextNode("This is some anchor text", TextType.LINK, "https://www.boot.dev")
-    print(node)
+    if os.path.exists(dir_path_public):
+        print("Deleting public directory...")
+        shutil.rmtree(dir_path_public)
+
+    print("Copying static files to public directory...")
+    copy_files_recursive(dir_path_static, dir_path_public)
+
+
+    print("Generating page...")
+    generate_pages_recursive(dir_path_content, template_path, dir_path_public)
 
 main()
